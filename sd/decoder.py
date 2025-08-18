@@ -131,5 +131,3 @@ class VAE_Decoder(nn.Sequential):
 
         # (Batch_Size, 3, Height, Width)
         return x
-
-

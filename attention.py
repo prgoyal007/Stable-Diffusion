@@ -52,6 +52,3 @@ class SelfAttention(nn.Module):
 
         # (Batch_Size Seq_Len, Dim)
         return output
-
-
-
