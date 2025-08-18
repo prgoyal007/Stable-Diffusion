@@ -18,6 +18,24 @@ class VAE_ResidualBlock(nn.Module):
             self.residual_layer = nn.Conv2d(in_channels, out_channels, kernel_size=1, padding=0)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # x()
+        # x: (Batch_Size, In_Channels, Height, Width)
+
+        residue = x
+
+        x = self.groupnorm_1(x)
+
+        x = F.silu(x)
+
+        x = self.conv_1(x)
+
+        x = self.groupnorm_2(x)
+
+        x = F.silu(x)
+
+        x = self.conv_2(x)
+
+        return x + self.residual_layer(residue)
+    
+    
 
 
