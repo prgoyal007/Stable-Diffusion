@@ -68,9 +68,10 @@ class VAE_ResidualBlock(nn.Module):
 
         return x + self.residual_layer(residue)
     
-class VAE_Decoder(nn.Sequential):
+class VAE_Decoder(nn.Module):
     def __init__(self):
-        super().__init__(
+        super().__init__()
+        self.layers = nn.Sequential(
             nn.Conv2d(4, 4, kernel_size=1, padding=0),
 
             nn.Conv2d(4, 512, kernel_size=3, padding=1),
@@ -126,7 +127,7 @@ class VAE_Decoder(nn.Sequential):
 
         x /= 0.18215
 
-        for module in self:
+        for module in self.layers:
             x = module(x)
 
         # (Batch_Size, 3, Height, Width)

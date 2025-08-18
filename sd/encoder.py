@@ -3,10 +3,12 @@ from torch import nn
 from torch.nn import functional as F
 from decoder import VAE_AttentionBlock, VAE_ResidualBlock
 
-class VAE_Encoder(nn.Sequential):
+class VAE_Encoder(nn.Module):
 
     def __init__(self):
-        super().__init__(
+        super().__init__()
+
+        self.layers = nn.Sequential(
             # (Batch_Size, Channel, Height, Weight) -> (Bacth_Size, 128, Height, Width)
             nn.Conv2d(3, 128, kernel_size=3, padding=1),
 
@@ -67,7 +69,7 @@ class VAE_Encoder(nn.Sequential):
         # x: (Batch_Size, Channel, Height, Width)
         # noise: (Batch_Size, Out_Channels, Height / 8, Width / 8)
 
-        for module in self:
+        for module in self.layers:
             if getattr(module, 'stride', None) == (2, 2):
                 # (Padding_Left, Padding_Right, Padding_Top, Padding_Bottom)
                 x = F.pad(x, (0, 1, 0, 1))
