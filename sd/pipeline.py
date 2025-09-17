@@ -10,7 +10,7 @@ LATENTS_HEIGHT = HEIGHT // 8
 
 def generate(
     prompt: str, 
-    uncond_prompt: str, 
+    uncond_prompt: str,     # Negative prompt or empty string
     input_image=None,
     strength=0.8, 
     do_cfg=True, 
